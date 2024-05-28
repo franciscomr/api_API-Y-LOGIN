@@ -10,28 +10,35 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Branch extends Model
+class Employee extends Model
 {
     use HasFactory, FetchData, FindSingleResource, SaveResource, InsertCreatedByAndUpdatedBy;
 
     protected $fillable = [
-        'company_id',
+        'branch_id',
+        'position_id',
         'name',
-        'address',
-        'city',
-        'state',
-        'postal_code'
+        'first_surname',
+        'second_surname',
+        'identifier',
+        'hire_date',
     ];
 
-    public function company(): BelongsTo
+    public function branch(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function position(): BelongsTo
+    {
+        return $this->belongsTo(Position::class);
     }
 
     public function getRelationshipKeys(): array
     {
         return [
-            'company_id'
+            'branch_id',
+            'position_id'
         ];
     }
 }

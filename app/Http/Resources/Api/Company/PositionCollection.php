@@ -5,7 +5,7 @@ namespace App\Http\Resources\Api\Company;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class BranchCollection extends ResourceCollection
+class PositionCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -16,19 +16,19 @@ class BranchCollection extends ResourceCollection
     {
         $relationships = collect();
         foreach ($this->collection as $resource) {
-            $relationships->push(new CompanyResource($resource->company));
+            $relationships->push(new DepartmentResource($resource->department));
         }
-        $companyCollection = new CompanyCollection($relationships->unique());
+        $departmentCollection = new DepartmentCollection($relationships->unique());
         $includeArray = explode(",", $request->get('include'));
 
         return [
             'data' => $this->collection,
             'links' => [
-                'self' => route('branches.index')
+                'self' => route('positions.index')
             ],
 
             'included' => [
-                $this->when(in_array('companies', $includeArray), $companyCollection->values()->all())
+                $this->when(in_array('departments', $includeArray), $departmentCollection->values()->all())
             ]
 
         ];

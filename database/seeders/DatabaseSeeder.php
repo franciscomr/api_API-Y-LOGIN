@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Database\Seeders\Api\Company\BranchSeeder;
 use Database\Seeders\Api\Company\CompanySeeder;
+use Database\Seeders\Api\Company\DepartmentSeeder;
+use Database\Seeders\Api\Company\EmployeeSeeder;
+use Database\Seeders\Api\Company\PositionSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,7 +22,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CompanySeeder::class,
-            BranchSeeder::class
+            BranchSeeder::class,
+            DepartmentSeeder::class,
+            PositionSeeder::class,
+            EmployeeSeeder::class
         ]);
     }
 }

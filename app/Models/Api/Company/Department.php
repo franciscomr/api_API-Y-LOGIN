@@ -8,30 +8,18 @@ use App\Traits\Api\InsertCreatedByAndUpdatedBy;
 use App\Traits\Api\SaveResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Branch extends Model
+class Department extends Model
 {
     use HasFactory, FetchData, FindSingleResource, SaveResource, InsertCreatedByAndUpdatedBy;
 
     protected $fillable = [
-        'company_id',
-        'name',
-        'address',
-        'city',
-        'state',
-        'postal_code'
+        'name'
     ];
 
-    public function company(): BelongsTo
+    public function jobs(): HasMany
     {
-        return $this->belongsTo(Company::class);
-    }
-
-    public function getRelationshipKeys(): array
-    {
-        return [
-            'company_id'
-        ];
+        return $this->hasMany(Job::class);
     }
 }

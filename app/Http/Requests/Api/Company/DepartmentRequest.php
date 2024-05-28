@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Company;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanyRequest extends FormRequest
+class DepartmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,22 +21,14 @@ class CompanyRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-            'address' => ['required', 'min:3', 'max:64'],
-            'city' => ['required', 'min:3', 'max:32'],
-            'state' => ['required', 'min:3', 'max:32'],
-            'city' => ['required', 'min:3', 'max:32'],
-            'postal_code' => ['required', 'digits:5']
-        ];
+        $rules = [];
         if ($this->isMethod('post')) {
             $rules += [
-                'name' => ['required', 'min:3', 'max:32', 'unique:companies'],
-                'business_name' => ['required', 'unique:companies,business_name'],
+                'name' => ['required', 'min:3', 'max:32', 'unique:departments'],
             ];
         } else {
             $rules += [
-                'name' => ['required', 'min:3', 'max:32', 'unique:companies,id,' . $this->id],
-                'business_name' => ['required', 'unique:companies,business_name,' . $this->id],
+                'name' => ['required', 'min:3', 'max:32', 'unique:departments,id,' . $this->id],
             ];
         }
 

@@ -2,7 +2,9 @@
 
 namespace App\Traits\Api;
 
-use Exception;
+use App\Http\Exceptions\JsonApiExceptionResponse;
+use App\Http\Exceptions\JsonApiExceptionSchema;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
 
@@ -84,7 +86,8 @@ trait FetchData
     protected function checkIfFieldExists(string $field, array $resourceFieldsList)
     {
         if (!in_array($field, $resourceFieldsList)) {
-            throw new Exception('invalid Value' . $field);
+            $error = new JsonApiExceptionSchema(__('api.bad_request_error'), __('api.invalid_parameter_message', ['parameter' => $field]), Response::HTTP_BAD_REQUEST);
+            throw new JsonApiExceptionResponse($error);
         }
     }
 }
