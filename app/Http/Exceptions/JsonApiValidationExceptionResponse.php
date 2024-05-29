@@ -5,6 +5,9 @@ namespace App\Http\Exceptions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 class JsonApiValidationExceptionResponse extends JsonResponse
 {
@@ -19,6 +22,15 @@ class JsonApiValidationExceptionResponse extends JsonResponse
         $title = $exception->getMessage();
         return   [
             'errors' => collect($exception->errors())->map(function ($messages, $field) use ($title) {
+                if ($field === 'username' || $field === 'password') {
+                    return [
+                        'title' => $title,
+                        'detail' => $messages[0],
+                        'source' => [
+                            'pointer' => '/' . $field
+                        ]
+                    ];
+                }
                 return [
                     'title' => $title,
                     'detail' => $messages[0],

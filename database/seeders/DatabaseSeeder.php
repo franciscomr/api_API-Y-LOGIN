@@ -8,6 +8,7 @@ use Database\Seeders\Api\Company\CompanySeeder;
 use Database\Seeders\Api\Company\DepartmentSeeder;
 use Database\Seeders\Api\Company\EmployeeSeeder;
 use Database\Seeders\Api\Company\PositionSeeder;
+use Database\Seeders\Api\UserSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -25,7 +26,8 @@ class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             DepartmentSeeder::class,
             PositionSeeder::class,
-            EmployeeSeeder::class
+            EmployeeSeeder::class,
+            UserSeeder::class
         ]);
     }
 }
